@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Running tests") {
             steps {
-                bat "python -m unittest test_scarenergy"
+                bat "python -m unittest test_scarenergy.py"
                 echo "Testing" 
             }
         }
