@@ -2,7 +2,7 @@ from unittest import TestCase, main
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
+
 
 class TestScar(TestCase):
     """
@@ -50,6 +50,7 @@ class TestScar(TestCase):
         # Find Scar Salt_Water product
         self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[1]"))
+        # Check that Salt water product is displayed on page
         self.assertTrue(self.salt_water.is_displayed(), "Product not found under header.")
 
     def test_add_shopping_cart(self):
@@ -63,11 +64,11 @@ class TestScar(TestCase):
         self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[2]/h2")).click()
         # Click "Add to cart"
-        self.add_to_cart = self.driver.find_element(
-            By.XPATH, "/html/body/div/main/div[1]/div/div[2]/div[2]/div/button[2]").click()
+        self.add_to_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+             By.XPATH, "/html/body/div/main/div[1]/div/div[2]/div[2]/div/button[2]")).click()
         # Click on shopping cart
-        self.shopping_cart = self.driver.find_element(
-            By.XPATH, "/html/body/div/header/div/div/a/button").click()
+        self.shopping_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+             By.XPATH, "/html/body/div/header/div/div/a/button")).click()
         # Check that you are now in cart page
         self.assertIn("cart", self.driver.current_url)
         # Check that you have the correct product added
@@ -92,10 +93,9 @@ class TestScar(TestCase):
         self.shopping_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/header/div/div/a/button")).click()
         # Click on "Proceed to checkout"
-        self.shopping_cart = self.driver.find_element(
-            By.XPATH, "/html/body/div/main/div/div[2]/div/div/button").click()
-        self.full_name = self.driver.find_element(
-            By.XPATH,"/html/body/div/main/div/div[1]/form/div[1]/input").send_keys("Nina Persson")
+        self.shopping_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+             By.XPATH, "/html/body/div/main/div/div[2]/div/div/button")).click()
+        # Check that you are on checkout page
         self.assertIn("checkout", self.driver.current_url)
 
     def tearDown(self):
