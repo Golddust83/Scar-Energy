@@ -58,8 +58,8 @@ class TestScar(TestCase):
         Testing that you can add a product to shopping cart
         """
         # Click "View more products" button
-        self.products = self.driver.find_element(
-            By.XPATH, "/html/body/div/main/div/main/a[2]").click()
+        self.products = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+             By.XPATH, "/html/body/div/main/div/main/a[2]")).click()
         # Find Scar Salt_Water product
         self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[2]/h2")).click()
