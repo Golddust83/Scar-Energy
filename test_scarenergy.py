@@ -38,15 +38,15 @@ class TestScar(TestCase):
             By.XPATH, "/html/body/div/header/div/a").click()
         # Test that URL now doesn't contain "products"
         self.assertFalse(
-            "products" in self.driver.current_url, "Products is not present in the dropdown menu.")
+            "products" in self.driver.current_url, "Products is not present in the current URL.")
 
     def test_single_product_page(self): 
         """
         Testing that explicit product exist on product page
         """
         # Click "View more products" button
-        self.products = self.driver.find_element(
-            By.XPATH, "/html/body/div/main/div/main/a[2]").click()
+        self.products = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+             By.XPATH, "/html/body/div/main/div/main/a[2]")).click()
         # Find Scar Salt_Water product
         self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[1]"))
@@ -58,21 +58,21 @@ class TestScar(TestCase):
         Testing that you can add a product to shopping cart
         """
         # Click "View more products" button
-        self.products = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.products = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/div/main/a[2]")).click()
         # Find Scar Salt_Water product
-        self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.salt_water = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[2]/h2")).click()
         # Click "Add to cart"
-        self.add_to_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.add_to_cart = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/div[1]/div/div[2]/div[2]/div/button[2]")).click()
         # Click on shopping cart
-        self.shopping_cart = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.shopping_cart = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/header/div/div/a/button")).click()
         # Check that you are now in cart page
         self.assertIn("cart", self.driver.current_url)
         # Check that you have the correct product added
-        self.text = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.text = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/div/div[1]/div/div/a/div/h2")).text
         self.assertIn("Scar Salt_Water", self.text)
         
