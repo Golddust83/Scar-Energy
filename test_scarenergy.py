@@ -45,10 +45,10 @@ class TestScar(TestCase):
         Testing that explicit product exist on product page
         """
         # Click "View more products" button
-        self.products = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.products = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/div/main/a[2]")).click()
         # Find Scar Salt_Water product
-        self.salt_water = WebDriverWait(self.driver, 10).until(lambda d: d.find_element(
+        self.salt_water = WebDriverWait(self.driver, 15).until(lambda d: d.find_element(
              By.XPATH, "/html/body/div/main/section/div/main/a[2]/div/div[1]"))
         # Check that Salt water product is displayed on page
         self.assertTrue(self.salt_water.is_displayed(), "Product not found under header.")
